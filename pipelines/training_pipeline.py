@@ -1,7 +1,7 @@
 from zenml import pipeline
 from steps.ingest_data import ingest_df
 from steps.clean_data import clean_df
-from steps.train_model import train_model
+from steps.model_train import train_model
 from steps.evaluation import evaluate_model
 
 
