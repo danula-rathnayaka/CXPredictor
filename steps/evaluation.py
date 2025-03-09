@@ -29,6 +29,7 @@ def evaluate_model(model: RegressorMixin, X_test: pd.DataFrame, y_test: pd.Serie
         r2_class = R2()
         r2 = r2_class.calculate_scores(y_test_np, prediction)
         mlflow.log_metric("r2", r2)
+        print(type(r2))
 
         rmse_class = RMSE()
         rmse = rmse_class.calculate_scores(y_test_np, prediction)
