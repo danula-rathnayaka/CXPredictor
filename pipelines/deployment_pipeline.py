@@ -103,7 +103,7 @@ def prediction_service_loader(
 @step
 def predictor(
         service: MLFlowDeploymentService,
-        data: np.ndarray,
+        data: str,
 ) -> np.ndarray:
     service.start(timeout=10)  # should be a NOP if already started
     data = json.loads(data)
