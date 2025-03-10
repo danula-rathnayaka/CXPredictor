@@ -4,7 +4,7 @@ import click
 from zenml.integrations.mlflow.model_deployers import mlflow_model_deployer
 
 from pipelines.deployment_pipeline import (
-    continuous_deployment_pipeline,
+    continuous_deployment_pipeline, inference_pipeline,
 )
 from rich import print
 from zenml.integrations.mlflow.mlflow_utils import get_tracking_uri
@@ -32,7 +32,7 @@ DEPLOY_AND_PREDICT = "deploy_and_predict"
 )
 @click.option(
     "--min-accuracy",
-    default=0.5,
+    default=0.92,
     help="Minimum accuracy required to deploy the model",
 )
 def run_deployment(config: str, min_accuracy: float):
@@ -49,8 +49,11 @@ def run_deployment(config: str, min_accuracy: float):
             timeout=60
         )
 
-        # if predict:
-        #     inference_pipeline()
+        if predict:
+            inference_pipeline(
+                pipeline_name="continuous_deployment_pipeline",
+                pipeline_step_name="mlflow_model_deployer_step",
+            )
 
         print(
             "You can run:\n "

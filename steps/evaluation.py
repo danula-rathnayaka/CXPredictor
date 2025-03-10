@@ -12,6 +12,7 @@ from zenml.client import Client
 
 experiment_tracker = Client().active_stack.experiment_tracker
 
+
 @step(experiment_tracker=experiment_tracker.name)
 def evaluate_model(model: RegressorMixin, X_test: pd.DataFrame, y_test: pd.Series) -> Tuple[
     Annotated[float, "r2_score"],
@@ -28,7 +29,7 @@ def evaluate_model(model: RegressorMixin, X_test: pd.DataFrame, y_test: pd.Serie
 
         r2_class = R2()
         r2 = r2_class.calculate_scores(y_test_np, prediction)
-        mlflow.log_metric("r2", r2)
+        mlflow.log_metric("r2", float(r2))
         print(type(r2))
 
         rmse_class = RMSE()
